@@ -22,8 +22,8 @@ def sms():
     # Create an SNS client
     client = boto3.client(
         "sns",
-        aws_access_key_id=os.environ.get('AWS_ACCESS_KEY_ID'),
-        aws_secret_access_key=os.environ.get('AWS_SECRET_ACCESS_KEY'),
+        aws_access_key_id="AKIA6ODU6YMYMAZ2MPO3",
+        aws_secret_access_key="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",
         region_name="us-east-1",
     )
 
@@ -40,12 +40,11 @@ def email():
     subject = request.form["subject"]
     # Create an SES client
     client = boto3.client(
-        "sns",
-        aws_access_key_id=os.environ.get("AWS_ACCESS_KEY_ID"),
-        aws_secret_access_key=os.environ.get("AWS_SECRET_ACCESS_KEY"),
+        "ses",
+        aws_access_key_id="AKIA6ODU6YMYMAZ2MPO3",
+        aws_secret_access_key="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",
         region_name="us-east-1",
     )
-
     # send the email message using the client
     response = client.send_email(
         Destination={
