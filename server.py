@@ -64,7 +64,7 @@ def email():
                 "Data": subject,
             },
         },
-        Source="jhon.patino29550@ucaldas.edu.co",
+        Source="funerariadigitaluc@gmail.com",
     )
     return response
 
