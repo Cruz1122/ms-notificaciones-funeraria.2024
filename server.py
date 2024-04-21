@@ -68,24 +68,18 @@ def email():
         region_name=os.environ.get("AWS_REGION"),
     )
     # send the email message using the client
-    response = client.send_email(
+    response = client.send_templated_email(
         Destination={
             "ToAddresses": [
                 destination,
             ],
         },
-        Message={
-            "Body": {
-                "Text": {
-                    "Charset": "UTF-8",
-                    "Data": message,
-                },
-            },
-            "Subject": {
-                "Charset": "UTF-8",
-                "Data": subject,
-            },
-        },
+        Template="AWS-SES-HTML-Demo-Template",
+        TemplateData='{"message":"'
+        + message
+        + '", "name":"'
+        + "Juancho Rois"
+        + '"}',
         Source="funerariadigitaluc@gmail.com",
     )
     return response
