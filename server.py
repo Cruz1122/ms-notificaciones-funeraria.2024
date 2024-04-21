@@ -74,11 +74,11 @@ def email():
                 destination,
             ],
         },
-        Template="AWS-SES-HTML-Demo-Template",
+        Template="AWS-SES-Email-Without-Name",
         TemplateData='{"message":"'
         + message
-        + '", "name":"'
-        + "Juancho Rois"
+        + '", "subject":"'
+        + subject
         + '"}',
         Source="funerariadigitaluc@gmail.com",
     )
@@ -91,7 +91,7 @@ def email_2fa():
     name = data["name"]
     message = data["message"]
     subject = data["subject"]
-    
+
     # Create an SES client
     client = boto3.client(
         "ses",
@@ -100,24 +100,20 @@ def email_2fa():
         region_name=os.environ.get("AWS_REGION"),
     )
     # send the email message using the client
-    response = client.send_email(
+    response = client.send_templated_email(
         Destination={
             "ToAddresses": [
                 destination,
             ],
         },
-        Message={
-            "Body": {
-                "Text": {
-                    "Charset": "UTF-8",
-                    "Data": "Hola, "+ name+". \n" + message,
-                },
-            },
-            "Subject": {
-                "Charset": "UTF-8",
-                "Data": subject,
-            },
-        },
+        Template="AWS-SES-Email-With-Name",
+        TemplateData='{"message":"'
+        + message
+        + '", "subject":"'
+        + subject
+        + '", "name":"'
+        + name
+        + '"}',
         Source="funerariadigitaluc@gmail.com",
     )
     return response
